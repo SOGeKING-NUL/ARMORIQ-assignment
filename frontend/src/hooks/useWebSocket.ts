@@ -16,8 +16,8 @@ export function useWebSocket(onMessage?: (message: WebSocketMessage) => void) {
   }, [onMessage]);
 
   useEffect(() => {
-    const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
-    const wsUrl = `${protocol}//${window.location.hostname}:${window.location.port || 3000}`;
+    const apiBaseUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000';
+    const wsUrl = apiBaseUrl.replace(/^http/, 'ws');
 
     ws.current = new WebSocket(wsUrl);
 

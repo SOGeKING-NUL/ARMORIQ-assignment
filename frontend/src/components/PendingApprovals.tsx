@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { apiClient } from '../api/client';
+import { useToast } from './Toast';
 import '../styles/PendingApprovals.css';
 
 interface PendingApprovalsProps {
@@ -10,17 +11,18 @@ interface PendingApprovalsProps {
 
 export default function PendingApprovals({ approvals, onReload, onApprovalProcessed }: PendingApprovalsProps) {
   const [processingId, setProcessingId] = useState<string | null>(null);
+  const { addToast } = useToast();
 
   const handleApprove = async (id: string) => {
     setProcessingId(id);
     try {
       await apiClient.approveRequest(id, 'Admin');
-      alert('Approval has been successfully processed and the agent is executing the request in the background!');
+      addToast('Approval processed. Agent is executing the tool call in the background!', 'success');
       onApprovalProcessed();
       onReload();
     } catch (error) {
       console.error('Failed to approve request:', error);
-      alert('Failed to process approval.');
+      addToast('Failed to process approval request.', 'error');
     } finally {
       setProcessingId(null);
     }
@@ -30,10 +32,12 @@ export default function PendingApprovals({ approvals, onReload, onApprovalProces
     setProcessingId(id);
     try {
       await apiClient.rejectRequest(id);
+      addToast('Tool call execution rejected.', 'warning');
       onApprovalProcessed();
       onReload();
     } catch (error) {
       console.error('Failed to reject request:', error);
+      addToast('Failed to reject request.', 'error');
     } finally {
       setProcessingId(null);
     }

@@ -1,40 +1,54 @@
 .guardrail-builder {
-  background: white;
-  border-radius: 8px;
-  padding: 20px;
-  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+  background: var(--bg-secondary);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
 }
 
 .builder-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .builder-header h2 {
   margin: 0;
   font-size: 20px;
+  color: var(--text-primary);
+  font-weight: 500;
 }
 
 .rule-form {
   display: flex;
   flex-direction: column;
-  gap: 12px;
-  padding: 20px;
-  background: #f9f9f9;
-  border-radius: 6px;
-  margin-bottom: 20px;
+  gap: 16px;
+  padding: 24px;
+  background: var(--bg-primary);
+  border-radius: 8px;
+  margin-bottom: 32px;
+  border: 1px solid var(--border-color);
 }
 
 .rule-form input,
 .rule-form textarea,
 .rule-form select {
   width: 100%;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 4px;
+  padding: 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
   font-size: 14px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  transition: all 0.2s ease;
+}
+
+.rule-form input:focus,
+.rule-form textarea:focus,
+.rule-form select:focus {
+  outline: none;
+  border-color: var(--accent-color);
+  box-shadow: 0 0 0 1px var(--accent-color);
 }
 
 .rule-form label {
@@ -42,95 +56,104 @@
   align-items: center;
   gap: 8px;
   font-size: 14px;
+  color: var(--text-primary);
 }
 
 .rule-form label input[type='checkbox'] {
   width: auto;
   cursor: pointer;
+  accent-color: var(--accent-color);
 }
 
 .rules-list {
   display: grid;
-  gap: 12px;
+  gap: 16px;
 }
 
 .rule-item {
-  padding: 16px;
-  border: 1px solid #ddd;
-  border-radius: 6px;
-  background: #fff;
+  padding: 20px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-primary); /* match tool catalog cards */
   transition: all 0.2s ease;
 }
 
 .rule-item.disabled {
   opacity: 0.6;
-  background: #f9f9f9;
+  background: var(--bg-primary);
 }
 
 .rule-item:hover {
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: var(--shadow-md);
+  border-color: #ccc;
 }
 
 .rule-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 8px;
+  margin-bottom: 12px;
 }
 
 .rule-header h3 {
   margin: 0;
   font-size: 16px;
-  color: #333;
+  color: var(--text-primary);
+  font-weight: 600;
 }
 
 .rule-type {
   padding: 4px 12px;
-  background: #e7f3ff;
-  color: #007bff;
-  border-radius: 4px;
+  background: var(--chat-user-bg);
+  color: var(--text-primary);
+  border-radius: 6px;
   font-size: 12px;
-  font-weight: 500;
+  font-weight: 600;
+  letter-spacing: 0.05em;
 }
 
 .rule-tool {
-  font-size: 12px;
-  color: #666;
+  font-size: 13px;
+  color: var(--text-secondary);
   margin: 4px 0;
 }
 
 .rule-desc {
   font-size: 14px;
-  color: #555;
-  margin: 8px 0;
+  color: var(--text-primary);
+  margin: 12px 0;
+  line-height: 1.5;
 }
 
 .rule-actions {
   display: flex;
   gap: 8px;
-  margin-top: 12px;
+  margin-top: 16px;
 }
 
 .rule-actions .btn-small {
-  padding: 6px 12px;
-  font-size: 12px;
-  background: #f0f0f0;
-  color: #333;
-  border: 1px solid #ddd;
+  padding: 6px 14px;
+  font-size: 13px;
+  background: var(--pill-bg);
+  color: var(--text-primary);
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
 }
 
 .rule-actions .btn-small:hover {
-  background: #e0e0e0;
+  background: rgba(0,0,0,0.05);
 }
 
 .rule-actions .btn-small.delete {
-  background: #ffe0e0;
-  color: #d32f2f;
-  border-color: #ffb3b3;
+  background: #fef2f2;
+  color: #ef4444;
 }
 
 .rule-actions .btn-small.delete:hover {
-  background: #ffb3b3;
+  background: #fee2e2;
 }
 
 .form-group {
@@ -143,14 +166,14 @@
 .form-label {
   font-weight: 600;
   font-size: 13px;
-  color: #4a5568;
+  color: var(--text-primary);
   margin-bottom: 2px;
   display: block;
 }
 
 .helper-text {
-  font-size: 11px;
-  color: #718096;
+  font-size: 12px;
+  color: var(--text-secondary);
   margin-top: 2px;
   line-height: 1.4;
   display: block;

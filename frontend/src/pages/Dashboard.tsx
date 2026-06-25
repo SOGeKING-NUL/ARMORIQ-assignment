@@ -102,7 +102,7 @@ export default function Dashboard() {
           onClick={() => setActiveTab('conversation')}
           disabled={!conversationId}
         >
-          Conversation
+          {conversationId ? `Conversation: ${conversationId}` : 'Conversation'}
         </button>
         <button
           className={`nav-btn ${activeTab === 'logs' ? 'active' : ''}`}
@@ -123,7 +123,7 @@ export default function Dashboard() {
             onApprovalProcessed={loadApprovals}
           />
         )}
-        <div style={{ display: activeTab === 'conversation' ? 'block' : 'none' }}>
+        <div style={{ display: activeTab === 'conversation' ? 'flex' : 'none', flex: 1, minHeight: 0, overflow: 'hidden' }}>
           {conversationId && <ConversationView conversationId={conversationId} />}
         </div>
         {activeTab === 'logs' && conversationId && <AuditLogViewer conversationId={conversationId} />}
