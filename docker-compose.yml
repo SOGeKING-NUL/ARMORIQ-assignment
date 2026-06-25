@@ -1,0 +1,21 @@
+version: '3.8'
+
+services:
+  frontend:
+    build:
+      context: ./frontend
+    ports:
+      - "5173:5173"
+    environment:
+      # Use localhost because the browser connects to the backend directly from the user's machine
+      - VITE_API_URL=http://localhost:3000
+
+  backend:
+    build:
+      # Use the root directory as context so we can copy both backend and custom-mcp-server
+      context: .
+      dockerfile: backend/Dockerfile
+    ports:
+      - "3000:3000"
+    env_file:
+      - ./backend/.env
