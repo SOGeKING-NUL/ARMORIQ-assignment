@@ -54,6 +54,9 @@ server.setRequestHandler(CallToolRequestSchema, async (request) => {
       case 'register_runner_for_marathon':
         return handleRegisterRunnerForMarathon(args);
 
+      case 'finish_marathon':
+        return handleFinishMarathon(args);
+
       default:
         return {
           content: [
@@ -310,6 +313,65 @@ function handleRegisterRunnerForMarathon(args: Record<string, unknown>) {
             registration,
             runner,
             marathon: { id: marathon.id, name: marathon.name, date: marathon.date },
+          },
+          null,
+          2
+        ),
+      },
+    ],
+  };
+}
+
+function handleFinishMarathon(args: Record<string, unknown>) {
+  const { runner_email, marathon_name } = args;
+
+  if (typeof runner_email !== 'string' || !runner_email.trim()) {
+    throw new ValidationError('runner_email is required');
+  }
+  if (typeof marathon_name !== 'string' || !marathon_name.trim()) {
+    throw new ValidationError('marathon_name is required');
+  }
+
+  validateEmail(runner_email);
+
+  const runner = storage.getRunnerByEmail(runner_email.trim());
+  if (!runner) {
+    throw new ValidationError(`Runner with email ${runner_email} not found`);
+  }
+
+  const marathons = storage.listMarathons();
+  const marathon = marathons.find(
+    (m) => m.name.toLowerCase() === marathon_name.trim().toLowerCase()
+  );
+
+  if (!marathon) {
+    throw new ValidationError(`Marathon with name "${marathon_name}" not found`);
+  }
+
+  const registrations = storage.getRunnerRegistrations(runner.id);
+  const registration = registrations.find(
+    (r) => r.marathonId === marathon.id && r.status === 'registered'
+  );
+
+  if (!registration) {
+    throw new ValidationError(`No active registration found for runner ${runner_email} in marathon "${marathon.name}"`);
+  }
+
+  const updated = storage.updateRegistration(registration.id, 'completed');
+  if (!updated) {
+    throw new ValidationError('Failed to update registration status');
+  }
+
+  return {
+    content: [
+      {
+        type: 'text',
+        text: JSON.stringify(
+          {
+            success: true,
+            message: `Successfully completed ${marathon.name}! Stats updated.`,
+            registration: updated,
+            runner: storage.getRunner(runner.id),
           },
           null,
           2

@@ -115,4 +115,23 @@ export const toolSchemas = {
       required: ['runner_email', 'marathon_name'],
     },
   },
+
+  finish_marathon: {
+    name: 'finish_marathon',
+    description: 'Mark a runner\'s registration for a specific marathon as completed',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        runner_email: {
+          type: 'string',
+          description: 'Runner\'s email address',
+        },
+        marathon_name: {
+          type: 'string',
+          description: 'Name of the marathon event',
+        },
+      },
+      required: ['runner_email', 'marathon_name'],
+    },
+  },
 };

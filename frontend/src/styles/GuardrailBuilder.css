@@ -1,0 +1,157 @@
+.guardrail-builder {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.builder-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.builder-header h2 {
+  margin: 0;
+  font-size: 20px;
+}
+
+.rule-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: #f9f9f9;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.rule-form input,
+.rule-form textarea,
+.rule-form select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.rule-form label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+}
+
+.rule-form label input[type='checkbox'] {
+  width: auto;
+  cursor: pointer;
+}
+
+.rules-list {
+  display: grid;
+  gap: 12px;
+}
+
+.rule-item {
+  padding: 16px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  background: #fff;
+  transition: all 0.2s ease;
+}
+
+.rule-item.disabled {
+  opacity: 0.6;
+  background: #f9f9f9;
+}
+
+.rule-item:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.rule-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+.rule-header h3 {
+  margin: 0;
+  font-size: 16px;
+  color: #333;
+}
+
+.rule-type {
+  padding: 4px 12px;
+  background: #e7f3ff;
+  color: #007bff;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.rule-tool {
+  font-size: 12px;
+  color: #666;
+  margin: 4px 0;
+}
+
+.rule-desc {
+  font-size: 14px;
+  color: #555;
+  margin: 8px 0;
+}
+
+.rule-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.rule-actions .btn-small {
+  padding: 6px 12px;
+  font-size: 12px;
+  background: #f0f0f0;
+  color: #333;
+  border: 1px solid #ddd;
+}
+
+.rule-actions .btn-small:hover {
+  background: #e0e0e0;
+}
+
+.rule-actions .btn-small.delete {
+  background: #ffe0e0;
+  color: #d32f2f;
+  border-color: #ffb3b3;
+}
+
+.rule-actions .btn-small.delete:hover {
+  background: #ffb3b3;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-bottom: 8px;
+}
+
+.form-label {
+  font-weight: 600;
+  font-size: 13px;
+  color: #4a5568;
+  margin-bottom: 2px;
+  display: block;
+}
+
+.helper-text {
+  font-size: 11px;
+  color: #718096;
+  margin-top: 2px;
+  line-height: 1.4;
+  display: block;
+}

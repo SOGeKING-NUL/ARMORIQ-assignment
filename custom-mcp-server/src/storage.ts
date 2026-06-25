@@ -187,12 +187,27 @@ class MarathonStorage {
     return this.updateRegistration(registrationId, 'cancelled');
   }
 
-  // Seed with sample data
+  // Seed with real upcoming Delhi-NCR races (registered via the same path the
+  // create_marathon tool uses) so list_marathons has live data on every boot.
   seedSampleData(): void {
-    // Create sample marathons
-    this.createMarathon('NYC Marathon', '2025-11-02', 42.195, 'New York, USA');
-    this.createMarathon('Boston Marathon', '2025-04-21', 42.195, 'Boston, USA');
-    this.createMarathon('London Marathon', '2025-04-27', 42.195, 'London, UK');
+    this.createMarathon(
+      'Kargil Vijay Diwas Half Marathon (5th Edition)',
+      '2026-07-26',
+      21.1,
+      'Dwarka Sector 14, New Delhi'
+    );
+    this.createMarathon(
+      'Dwarka Half Marathon (8th Edition)',
+      '2026-08-02',
+      21.1,
+      'Dwarka, New Delhi'
+    );
+    this.createMarathon(
+      'Tuffman Half Marathon Delhi (3rd Edition)',
+      '2026-08-23',
+      21.1,
+      'JLN Stadium, Delhi'
+    );
 
     // Create sample runners
     this.createRunner('Alice Johnson', 'alice@example.com', 28);
