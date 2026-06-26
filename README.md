@@ -6,14 +6,16 @@ ArmorIQ is a full-stack, production-ready AI agent security platform. It demonst
 
 ## 📸 Screenshots & Architecture
 
+### System Design Overview
+![System Design Architecture](./assets/SYSTEM_DESIGN..png)
+
 ### Agent Chat & Policy Enforcement
 ![Agent Chat](./assets/chat.jpg)
 
 ### Guardrails Admin Dashboard
 ![Guardrails Dashboard](./assets/guardrails.jpg)
 
-### System Design Overview
-![System Design Architecture](./assets/SYSTEM_DESIGN..png)
+
 
 ---
 
