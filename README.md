@@ -1,130 +1,43 @@
-SoftWare Engineer - Assignment
+# ArmorIQ Guarded AI Agent
 
-Build a Guarded AI Agent with MCP Support  |  Time budget: 3 days |  Stack: your choice
+ArmorIQ is a full-stack, production-ready AI agent security platform. It demonstrates how an autonomous AI agent interacts with external tools via the **Model Context Protocol (MCP)**, while a deterministic **Policy Engine** intercepts and enforces security guardrails in real-time.
 
-Overview
-   ArmorIQ is an AI agent security platform. We build the layer that decides what an
-autonomous agent is and isn't allowed to do - especially at the point where the agent reaches
-out to external tools. The Model Context Protocol (MCP) is the emerging standard for that tool
-layer, and a big part of our world.
+---
 
-   This assignment asks you to build a miniature version of that idea: an AI agent that talks to
-MCP servers, and a policy layer that sits between the agent and those servers and actually
-enforces guardrails. We want to see how you think about the LLM tool-use loop, the MCP
-protocol, and the seam between "what the model wants to do" and "what the system will
-permit."
+## 📸 Screenshots & Architecture
 
-What You'll Build
-A full-stack app with 3 parts. All three must be wired together so the dashboard's guardrails
-genuinely control the agent's behavior in real time.
+### Agent Chat & Policy Enforcement
+![Agent Chat](./assets/chat.jpg)
 
-1. AI Agent (Backend)
-A backend service that hosts the agent and runs its tool-use loop.
+### Guardrails Admin Dashboard
+![Guardrails Dashboard](./assets/guardrails.jpg)
 
-●  You can use any LLM API (Gemini, Claude, OpenAI, whatever you prefer)
+### System Design Overview
+![System Design Architecture](./assets/SYSTEM_DESIGN..png)
 
-●  You should connect to MCP servers (tool discovery + tool execution via stdio or SSE
+---
 
-transport)
+## 🏗️ Core Architecture
 
-●  You must support at least 2 working MCP servers (one remote that already exists, e.g.
+The system is cleanly split into three decoupled modules:
 
-context7, exa; one made by you)
+1. **AI Agent (Backend - Node.js/Express):** Runs the multi-turn tool-use loop, communicating with LLMs (via OpenRouter). It discovers tools dynamically from connected MCP servers and routes them through the policy layer.
+2. **Policy Engine (Backend):** A deterministic, self-contained security module. It intercepts raw structured arguments *before* execution, applying active rules (Block, Validate, Require Approval) instantly.
+3. **Guardrails Dashboard (Frontend - React):** An admin UI allowing live updates to security policies. Changes propagate instantly without requiring backend restarts.
+4. **Tool Execution Layer:** Powered by **Model Context Protocol (MCP)**. Includes a custom-built MCP server for proprietary business logic (marathon registration) and the remote Exa MCP server for live web search.
 
-●  Your agent should do a proper tool-use loop (LLM decides to call tool → execute via
+## 📚 Documentation
 
-MCP → feed result back)
+For a deep dive into the system's architecture, workflows, and edge-case handling, please refer to the dedicated documentation files:
 
-   Tool discovery must be live, not hardcoded - when you add a new MCP server, the agent
-should automatically pick up whatever tools it exposes.
+- [System Design Document](./SYSTEM_DESIGN.md)
+- [Project Workflow & Request Lifecycle](./PROJECT_WORKFLOW.md)
+- [Edge Cases Analysis](./EDGE_CASES.md)
+- [Implementation Details](./IMPLEMENTATION.md)
 
-2. Policy / Guardrails Dashboard (Frontend)
-A simple web UI where an admin can create guardrail rules such as:
+---
 
-●  Block speciﬁc tools entirely (e.g. "never allow delete_ﬁle")
-
-●  Require human approval before executing certain tools
-
-●
-
-Input validation rules (e.g. "ﬁle paths must be under /sandbox/ only")
-
-●  Cost/token budget per conversation
-
-Bonus: View conversation logs - see what the agent did, which tools it called, what was
-blocked by policy.
-
-   Rules created or toggled in the dashboard must take eﬀect on the running agent without a
-restart. How you wire that up (polling, websockets, shared store, something else) is your call.
-
-3. A Custom MCP Server
-An MCP server you write yourself, that the agent connects to alongside the remote one.
-
-●  A simple MCP server exposing 4-5 tools (e.g. a mini database CRUD, or a ﬁle manager,
-
-or an API wrapper)
-
-●
-
-It must follow the MCP spec properly (tool listing, schema, execution, error handling)
-
-   It should be plug-and-play - pointing your agent at this server should "just work" without any
-agent-side code changes.
-
-Constraints
-
-●  No hardcoded tool lists anywhere - everything is discovered from the MCP servers at
-
-runtime
-
-●  The policy engine should be a separate, self-contained module - not scattered inline
-
-through the agent loop
-
-●  Dashboard changes must propagate to a running agent without restart
-
-●  Code should be cleanly split across agent logic, policy engine, and MCP transport - not
-
-a single giant ﬁle
-
-Context:
-
- ArmorIQ enforces agent behavior cryptographically at the intent layer. This assignment is a
-simpler version of that idea: a policy layer sits between an LLM and its tools, and decides what
-is and isn't allowed. Design with that spirit in mind - the policy engine is the heart of the
-system, not an afterthought.
-
-Edge Cases to Think About
-We'll ask about these in the follow-up call. You don't have to handle every one in code, but you
-should have a point of view.
-
-●  What happens when an MCP server crashes mid-tool-call?
-
-●  What happens when the agent tries to bypass a guardrail via prompt injection?
-
-●  What happens when two guardrail rules conﬂict?
-
-●  What happens when a tool needs human approval but the approver is oﬄine?
-
-Logistics
-
-●  Deliverable: GitHub repo + deployed link + 5-min recording walking through the system
-
-live
-
-●  Stack: your choice
-
-●  Bonus points: if your custom MCP server does something creative, and if you handle
-
-prompt injection attempts in guardrails
-
-Submission
-
-●  Subject: {yourName} - Armoriq SWE intern assignment submission
-
-●  To: fuzail@armoriq.io
-
-●  CC: aniket@armoriq.io, arun@armoriq.io, pulkit@armoriq.io
-
-Questions? Follow us at @ArmorIQ for updates and announcement on this role.
-
+### Deployment Configuration
+- **Frontend:** Serverless (Vercel)
+- **Backend & Custom MCP Server:** Dockerized Container (Render/Fly.io)
+- **Database:** Serverless PostgreSQL (Neon DB)
