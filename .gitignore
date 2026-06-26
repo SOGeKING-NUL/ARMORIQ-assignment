@@ -12,3 +12,4 @@ dist/
 !README.md
 *.txt
 *.docx
+!Guarded_AI_Agent_Documentation.docx
