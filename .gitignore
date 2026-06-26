@@ -10,3 +10,5 @@ dist/
 *.swo
 *.md
 !README.md
+*.txt
+*.docx
